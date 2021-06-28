@@ -1,0 +1,72 @@
+breed[Cactuses Cactus]
+breed[Ladrillos Ladrillo]
+breed[Bolas Bola]
+
+to Iniciar
+  ca
+  set-default-shape Ladrillos "Box"
+  set-default-shape Bolas "Dot"
+
+  create-Ladrillos 1
+  [
+    set size 2
+    set color 125
+  ]
+  
+  create-Bolas 1
+  [
+    set xcor 0
+    set ycor -13
+    set color red
+    set size 2
+  ]
+  
+  ask patches with[pycor = -14 and pxcor = 0 and pxcor = 1 and pxcor = -1]
+  [
+    set pcolor 85
+  ]
+end
+
+
+;to Mover[Direccion]
+; ask patches with[pcolor = 85]
+;  [
+;    if(Direccion = "Derecha")
+;    [set heading 90  fd 2 ]
+;
+;   if(Direccion = "Izquierda")
+;    [set heading 270    fd 2 ]
+;  ]
+;end
+
+to IniciarAbeja
+  if(not any? Ladrillos)
+  [stop]
+
+  every 0.2
+  [
+   ask Ladrillos
+   [
+    fd 2
+    left random 180
+    if(any? cactuses-here ) ;Es turtles-here adaptado a otra especie
+    [Die]
+   ]
+
+  ]
+end
+
+to NacerAbeja
+  ask Ladrillos[hatch 1]
+end
+
+to Play
+  ask Bolas
+  [
+    fd 0.3
+    if(xcor >= 16 or xcor <= -16 or ycor >= 16 or ycor <= -16)
+    [
+      
+    ]
+  ]
+end
