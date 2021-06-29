@@ -2,9 +2,9 @@ breed[Cactuses Cactus]
 breed[Ladrillos Ladrillo]
 breed[Bolas Bola]
 
-to Iniciar
+to Inicio
   ca
-  set-default-shape Ladrillos "Box"
+  set-default-shape Ladrillos "tile brick"
   set-default-shape Bolas "Dot"
 
   create-Ladrillos 1
@@ -19,14 +19,22 @@ to Iniciar
     set ycor -13
     set color red
     set size 2
+    set heading 60
   ]
   
-  ask patches with[pycor = -14 and pxcor = 0 and pxcor = 1 and pxcor = -1]
+  ask patches with[pycor = -14 and pxcor = 0]
   [
     set pcolor 85
   ]
 end
 
+to Rebote[Muro]
+  if(Muro = "x")
+  [set heading 180 - heading]
+  
+  if (Muro = "y")
+  [set heading 360 - heading]
+end
 
 ;to Mover[Direccion]
 ; ask patches with[pcolor = 85]
@@ -64,9 +72,13 @@ to Play
   ask Bolas
   [
     fd 0.3
-    if(xcor >= 16 or xcor <= -16 or ycor >= 16 or ycor <= -16)
+    if(ycor >= 16 or ycor <= -16)
     [
-      
+      Rebote "x"
     ]
+    if(xcor >= 16 or xcor <= -16)
+    [
+      Rebote "y"
+    ] 
   ]
 end
